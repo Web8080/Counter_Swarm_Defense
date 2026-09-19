@@ -4,7 +4,8 @@
 
 **Author:** Victor.I  
 **Programme:** PhD-grade research monographs for each Counter-Swarm Defence engineering role  
-**Integrity rule:** Citations must be real landmark works. No fabricated DOIs or invented papers.
+**Integrity rule:** Citations must be real landmark works. No fabricated DOIs or invented papers.  
+**Pass 1 status:** Complete (2026-09-19)
 
 ## Scope honesty
 
@@ -12,21 +13,21 @@ A true PhD dissertation is typically 60,000–100,000 words of original research
 
 This programme therefore delivers:
 
-1. **Pass 1 (this delivery):** Full PhD-*structured* monographs per role — literature-backed design, implementation guidance, trade-offs, failure analysis, evaluation/proof frameworks, and build guidance — with verified landmark citations.  
-2. **Pass 2+:** Section expansions, deeper proofs, extended related-work surveys, and appendices until each monograph approaches the 30,000-word target **without sacrificing citation integrity**.
+1. **Pass 1 (delivered):** Full PhD-*structured* monographs per role — literature-backed design, implementation guidance, trade-offs, failure analysis, evaluation/proof frameworks, and build guidance — with landmark citations. Combined Pass 1 corpus ≈ **103,000 words**.  
+2. **Pass 2+ (optional):** Section expansions, deeper proofs, extended related-work surveys, and appendices until each monograph approaches the 30,000-word target **without sacrificing citation integrity**.
 
-## Monographs
+## Monographs (Pass 1)
 
-| Role | Path |
-|---|---|
-| Product Design & Human Factors | [product-design/](product-design/) |
-| Software Engineering | [software-engineering/](software-engineering/) |
-| AI Engineering | [ai-engineering/](ai-engineering/) |
-| ML Engineering | [ml-engineering/detection-tracking-fusion-monograph.md](ml-engineering/detection-tracking-fusion-monograph.md) |
-| Data Engineering | [data-engineering/](data-engineering/) |
-| Data Science & Analytics | [data-science/](data-science/) |
-| Security, Safety & Governance | [security-governance/](security-governance/) |
-| Systems Engineering & Integration | [systems-engineering/](systems-engineering/) |
+| Role | File | Words (approx.) |
+|---|---|---|
+| Product Design & Human Factors | [product-design/human-factors-c2-monograph.md](product-design/human-factors-c2-monograph.md) | 14,147 |
+| Software Engineering | [software-engineering/event-driven-c2-software-monograph.md](software-engineering/event-driven-c2-software-monograph.md) | 12,279 |
+| AI Engineering | [ai-engineering/hitl-ai-decision-support-monograph.md](ai-engineering/hitl-ai-decision-support-monograph.md) | 11,506 |
+| ML Engineering | [ml-engineering/detection-tracking-fusion-monograph.md](ml-engineering/detection-tracking-fusion-monograph.md) | 12,857 |
+| Data Engineering | [data-engineering/heterogeneous-sensor-data-platform-monograph.md](data-engineering/heterogeneous-sensor-data-platform-monograph.md) | 12,727 |
+| Data Science & Analytics | [data-science/swarm-behaviour-risk-analytics-monograph.md](data-science/swarm-behaviour-risk-analytics-monograph.md) | 12,093 |
+| Security, Safety & Governance | [security-governance/secure-governed-cuas-software-monograph.md](security-governance/secure-governed-cuas-software-monograph.md) | 14,516 |
+| Systems Engineering & Integration | [systems-engineering/counter-swarm-systems-integration-monograph.md](systems-engineering/counter-swarm-systems-integration-monograph.md) | 13,020 |
 
 ## Defensive scope
 
