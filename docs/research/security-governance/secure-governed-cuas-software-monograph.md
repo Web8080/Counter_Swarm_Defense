@@ -6,7 +6,7 @@
 
 **Author:** Victor.I  
 **Affiliation:** Counter-Swarm Defence — Security, Safety and Governance  
-**Document type:** PhD-structured research monograph (Pass 1)  
+**Document type:** structured research monograph (Pass 1)  
 **Version:** 1.0  
 **Status:** Stage 0 research artefact  
 **Related Stage 0 artefacts:** `docs/security/threat-model.md`, `docs/security/auditability.md`, `docs/security/governance.md`, `docs/systems/requirements.md`, `docs/product/executive-definition.md`
@@ -1151,7 +1151,7 @@ This monograph intentionally excludes weapon design and effector control. That e
 
 | Version | Date | Author | Notes |
 |---|---|---|---|
-| 1.0 | 2026-09-19 | Victor.I | Pass 1 PhD-structured monograph |
+| 1.0 | 2026-09-19 | Victor.I | Pass 1 structured research monograph |
 
 ---
 
@@ -1544,7 +1544,7 @@ This document does not provide legal advice. Jurisdictions may regulate AI syste
 
 ## Extended analysis S — Research limitations of this Pass 1 monograph
 
-Per the research programme README: a true PhD dissertation is typically 60,000–100,000 words of original empirical research over years. This Pass 1 delivers PhD-*structured*, literature-backed design and assurance guidance with verified landmark citations. It does not claim novel cryptographic proofs, new adversarial algorithms, or completed field red-team empirics. Pass 2+ may extend proofs, related-work surveys, and appendices without sacrificing citation integrity.
+Per the research programme README: a full research dissertation is typically 60,000–100,000 words of original empirical research over years. This Pass 1 delivers research-structured, literature-backed design and assurance guidance with verified landmark citations. It does not claim novel cryptographic proofs, new adversarial algorithms, or completed field red-team empirics. Pass 2+ may extend proofs, related-work surveys, and appendices without sacrificing citation integrity.
 
 ---
 

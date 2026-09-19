@@ -3,7 +3,7 @@
 # Data Science for Swarm Behaviour Analysis, Uncertainty, and Risk Assessment in Counter-UAS Defensive Decision Support
 
 **Author:** Victor.I  
-**Document type:** Research monograph (PhD-structured)  
+**Document type:** Research monograph (research-structured)  
 **Programme:** Counter-Swarm Defence — Data Science & Analytics  
 **Scope:** Defensive decision-support software only (sensing, fusion, behaviour indicators, graded risk, human approval, audit). No weaponisation, kinetic fire control, or electronic-attack execution content.  
 **Integrity rule:** Citations are landmark works that exist in the public scholarly record. No fabricated DOIs.
@@ -1319,7 +1319,7 @@ Severity 5 items are release blockers if unmitigated.
 
 ## Appendix R — Extended related work notes (honest scope)
 
-A full PhD related-work chapter would systematically cover maritime anomaly detection, ADS-B trajectory clustering in ATM, computer vision multi-object activity recognition, and military C2 literature on threat evaluation and weapon assignment (TEWA)—the last only at the level of **decision-support process patterns**, not effector control. This Pass 1 monograph cites landmark statistical and mining works and maps them into Counter-Swarm. Pass 2 should add a structured annotated bibliography with page-level notes, still without fabricated venues.
+A full related-work chapter would systematically cover maritime anomaly detection, ADS-B trajectory clustering in ATM, computer vision multi-object activity recognition, and military C2 literature on threat evaluation and weapon assignment (TEWA)—the last only at the level of **decision-support process patterns**, not effector control. This Pass 1 monograph cites landmark statistical and mining works and maps them into Counter-Swarm. Pass 2 should add a structured annotated bibliography with page-level notes, still without fabricated venues.
 
 ATM and maritime domains supply useful negatives: lots of dense non-hostile traffic. Borrow evaluation design (lookalike stress tests) rather than borrowing threat labels.
 

@@ -6,7 +6,7 @@
 
 **Author:** Victor.I  
 **Role:** ML Engineering  
-**Document type:** PhD-structured research monograph (Pass 1 delivery; expandable)  
+**Document type:** structured research monograph (Pass 1 delivery; expandable)  
 **Defensive scope:** Sensing, detection, tracking, fusion, calibration, and operator-facing decision support only. This document does **not** describe weapon guidance, fire-control loops, or electronic-attack execution.
 
 ---

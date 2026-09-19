@@ -89,9 +89,9 @@ The problem this monograph solves is therefore:
 
 > Design and justify the data platform that makes Counter-Swarm’s fusion and decision-support chain *honest under adversarial and messy sensor conditions*, while remaining operable by a small skilled team for years.
 
-### 1.3 What “PhD-grade” means here
+### 1.3 What “research-grade” means here
 
-A dissertation typically contributes novel theory or empirics over years. This monograph is **PhD-structured**: problem framing, literature grounding, architecture exploration with trade-offs, failure analysis, evaluation/proof methods, and a build programme mapped to a concrete system. It is not a claim of unpublished experimental novelty. Where the literature is thin relative to defence fusion practice, the text marks uncertainty rather than inventing citations.
+A dissertation typically contributes novel theory or empirics over years. This monograph is **research-structured**: problem framing, literature grounding, architecture exploration with trade-offs, failure analysis, evaluation/proof methods, and a build programme mapped to a concrete system. It is not a claim of unpublished experimental novelty. Where the literature is thin relative to defence fusion practice, the text marks uncertainty rather than inventing citations.
 
 ### 1.4 Defensive scope boundary
 
@@ -1791,7 +1791,7 @@ These questions belong in Pass 2 empirical work with the simulation engine — n
 | Field | Value |
 |---|---|
 | Author | Victor.I |
-| Status | Pass 1 PhD-structured monograph |
+| Status | Pass 1 structured research monograph |
 | Integrity | Landmark citations only; no fabricated DOIs |
 | Companion | `docs/data/architecture.md`, `architecture/data-flow.md` |
 

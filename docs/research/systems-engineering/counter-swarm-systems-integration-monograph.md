@@ -2,7 +2,7 @@
 
 # Systems Engineering and Integration of Counter-Swarm Defence Decision-Support Platforms
 
-**A PhD-structured research monograph on mission definition, interface control, hybrid edge–central architectures, digital twins, failure engineering, verification and validation, and staged integration**
+**A structured research monograph on mission definition, interface control, hybrid edge–central architectures, digital twins, failure engineering, verification and validation, and staged integration**
 
 **Author:** Victor.I  
 **Programme:** Counter-Swarm Defence research monograph series  
@@ -99,7 +99,7 @@ Where assumptions exceed facts, this monograph marks them as assumptions and des
 
 This monograph addresses **defensive decision support**: sensing, fusion, tracking, risk, human approval, audit, and category-only external notification. It does **not** provide weapon guidance, kinetic fire-control loops, electronic-attack execution parameters, or methods to bypass safety interlocks. Mock effectors and external simulators exist only to validate handoff reliability and failure handling.
 
-A true doctoral dissertation typically comprises 60,000–100,000 words of original empirical research. This document is a PhD-*structured* monograph: literature-backed design, failure analysis, V&V frameworks, and integration guidance with verified landmark citations. Depth expands in subsequent passes without inventing sources.
+A full research dissertation typically comprises 60,000–100,000 words of original empirical research. This document is a research-structured monograph: literature-backed design, failure analysis, V&V frameworks, and integration guidance with verified landmark citations. Depth expands in subsequent passes without inventing sources.
 
 ### 1.7 Structure of the monograph
 
@@ -1416,7 +1416,7 @@ Systems engineers are responsible for steering stakeholders from the left column
 |---|---|
 | Title | Systems Engineering and Integration of Counter-Swarm Defence Decision-Support Platforms |
 | Author | Victor.I |
-| Status | Pass 1 — PhD-structured monograph |
+| Status | Pass 1 — structured research monograph |
 | Classification | Defensive decision-support research; no effector procedures |
 | Related repo paths | `docs/research/systems-engineering/`, `architecture/`, `docs/systems/` |
 
