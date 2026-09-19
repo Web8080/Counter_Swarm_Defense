@@ -85,8 +85,21 @@ Sufficient to prove data path; not HA.
 | Adapter processes | Yes (lab sim) | Yes |
 | Local buffer disk | Optional | Yes |
 | Local UI | No | Optional degraded |
-| Local inference | No | As bandwidth requires |
+| Local inference | No | As bandwidth requires (prefer Jetson for EO) |
 | Secrets | Injected | TPM/secure element preferred |
+
+### 5.1 Hardware baseline (Systems Engineering)
+
+Full decision record: [`edge-hardware.md`](edge-hardware.md).
+
+| Role | Baseline choice |
+|---|---|
+| Stage 1 lab / central services | **x86** host or VM (Docker Compose → K8s later) |
+| EO/IR edge inference | **NVIDIA Jetson Orin** class when cameras arrive |
+| Light protocol / lab adapters only | Raspberry Pi / CM4 **optional** — not fusion brain |
+| Site ops console | Central web clients; not Pi-hosted C2 |
+
+Systems engineers in this product class almost always run **hybrid**: serious AI at Jetson (or rugged GPU) edges + **x86 central** for fusion/C2. Pure-Pi fleets are demo-grade, not the operational default.
 
 ---
 

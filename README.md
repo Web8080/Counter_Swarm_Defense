@@ -73,9 +73,14 @@ Physical response effects remain outside the platform. Development uses simulati
 | 12 | Development roadmap | [docs/systems/roadmap.md](docs/systems/roadmap.md) |
 | 13 | Testing strategy | [docs/systems/testing-strategy.md](docs/systems/testing-strategy.md) |
 | 14 | Deployment architecture | [architecture/deployment.md](architecture/deployment.md) |
+| 14b | Edge / compute hardware (Pi vs NVIDIA) | [architecture/edge-hardware.md](architecture/edge-hardware.md) |
 | 15 | Repository structure | [docs/systems/repository-structure.md](docs/systems/repository-structure.md) |
 | 16 | This README | [README.md](README.md) |
 | 17 | Open questions and assumptions | [docs/systems/open-questions-assumptions.md](docs/systems/open-questions-assumptions.md) |
+| 18 | Observability design | [docs/systems/observability.md](docs/systems/observability.md) |
+| 19 | Auditability design | [docs/security/auditability.md](docs/security/auditability.md) |
+| 20 | CI/CD design | [docs/software/cicd-and-environments.md](docs/software/cicd-and-environments.md) |
+| 21 | Stage 0 completion gate | [docs/systems/stage0-completion.md](docs/systems/stage0-completion.md) |
 
 Discipline deep-dives live under `docs/product`, `docs/software`, `docs/ai`, `docs/ml`, `docs/data`, `docs/data-science`, `docs/security`, and `docs/systems`.
 
@@ -101,7 +106,7 @@ RESEARCH → REQUIREMENTS → SYSTEM ARCHITECTURE
         → HARDWARE-IN-LOOP → CONTROLLED VALIDATION → PRODUCTION
 ```
 
-Current gate: **document review and approval**. No application implementation until architecture sign-off.
+Current gate: **Stage 0 documentation complete** ([stage0-completion.md](docs/systems/stage0-completion.md)). Next: **planning → Stage 1 coding** on an **x86 lab host** (Compose). Edge: **NVIDIA Jetson** for EO when needed; **Raspberry Pi** only for light/lab adapters — see [architecture/edge-hardware.md](architecture/edge-hardware.md).
 
 ---
 

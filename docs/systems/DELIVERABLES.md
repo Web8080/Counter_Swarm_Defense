@@ -34,11 +34,16 @@ Quick map of the sixteen numbered deliverables plus README.
 | 12 | Development roadmap | [roadmap.md](roadmap.md) |
 | 13 | Testing strategy | [testing-strategy.md](testing-strategy.md) |
 | 14 | Deployment architecture | [../../architecture/deployment.md](../../architecture/deployment.md) |
+| 14b | Edge / compute hardware | [../../architecture/edge-hardware.md](../../architecture/edge-hardware.md) |
 | 15 | Repository structure | [repository-structure.md](repository-structure.md) |
 | 16 | README | [../../README.md](../../README.md) |
 | 17 | Open questions and assumptions | [open-questions-assumptions.md](open-questions-assumptions.md) |
+| 18 | Observability | [observability.md](observability.md) |
+| 19 | Auditability | [../security/auditability.md](../security/auditability.md) |
+| 20 | CI/CD design | [../software/cicd-and-environments.md](../software/cicd-and-environments.md) |
+| 21 | Stage 0 completion gate | [stage0-completion.md](stage0-completion.md) |
 
-**Stop point:** Review and approve before application code and before GitHub push to `web8080`.
+**Stop point:** Stage 0 docs complete. Next is planning, then Stage 1 implementation (no application code until that plan is agreed).
 
 ## Author
 

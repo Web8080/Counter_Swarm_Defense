@@ -2,15 +2,14 @@
 
 # Schemas
 
-Canonical observation and event schemas will be published here after Stage 0 architecture approval.
+Canonical JSON Schema drafts for Stage 0. Producers/consumers must not invent parallel shapes.
 
-Until then, the conceptual contract lives in:
+| File | Purpose |
+|---|---|
+| [observation.v1.json](observation.v1.json) | Canonical observation (ICD-01/02) |
+| [human.decision.v1.json](human.decision.v1.json) | Human authorised category (ICD-10) |
 
-- `architecture/data-flow.md`
-- `architecture/interfaces.md`
-- `docs/data/architecture.md`
-
-Do not implement producers/consumers against informal copies.
+Event families (`detection.v1`, `track.update.v1`, `risk.assessment.v1`, …) will be added as Stage 1 contracts freeze. Conceptual definitions: `architecture/data-flow.md`, `architecture/interfaces.md`.
 
 ## Author
 

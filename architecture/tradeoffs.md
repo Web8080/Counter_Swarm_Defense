@@ -141,6 +141,21 @@ Only after core C2 works. Tool-calling agent with **strict allowlist**, server-s
 
 ---
 
+### D13 — Edge compute (Raspberry Pi vs NVIDIA)
+
+| Option | Pros | Cons |
+|---|---|---|
+| Raspberry Pi as primary edge | Cheap, familiar | Weak for EO ML; not operational C-UAS norm |
+| **NVIDIA Jetson for vision edge** | CUDA/TensorRT, industry edge-AI default | BSP/fleet overhead |
+| **x86 central** | Runs bus/DB/console/fusion well | Needs network to sensors |
+| All-in on Pi cluster | Homogeneous toys | Wrong tool for fusion + detect under load |
+
+**Recommendation:** **x86 central (Compose Stage 1)** + **Jetson Orin class for EO edges when needed** + Pi only for light/lab adapters. See `architecture/edge-hardware.md`.
+
+**Trade-off:** Hardware cost/complexity vs credible latency and field performance.
+
+---
+
 ## 3. Summary selection matrix
 
 | Area | Selected (proposed) | Explicit non-goals |
@@ -157,6 +172,9 @@ Only after core C2 works. Tool-calling agent with **strict allowlist**, server-s
 | Deploy hardened | Kubernetes | Snowflake PaaS lock-in without review |
 | Auth | OIDC + mTLS services | Roll-your-own auth |
 | Maps | MapLibre (or approved) | Unlicensed map data |
+| Central compute | x86 lab/server | Pi as C2 host |
+| Vision edge | NVIDIA Jetson Orin class | Pi as primary detector |
+| Light edge adapter | Pi optional | Pi-only architecture |
 
 ---
 

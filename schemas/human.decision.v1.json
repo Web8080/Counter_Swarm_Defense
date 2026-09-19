@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://counter-swarm.local/schemas/human.decision.v1.json",
+  "title": "HumanDecision",
+  "description": "Author: Victor.I — Stage 0 draft. Category-only; no effector primitives.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "decision_id",
+    "schema_version",
+    "timestamp_utc",
+    "actor_id",
+    "category",
+    "context",
+    "rationale"
+  ],
+  "properties": {
+    "decision_id": { "type": "string", "format": "uuid" },
+    "schema_version": { "type": "string", "const": "1.0.0" },
+    "timestamp_utc": { "type": "string", "format": "date-time" },
+    "actor_id": { "type": "string" },
+    "category": {
+      "type": "string",
+      "enum": [
+        "DISMISS",
+        "HEIGHTEN_MONITORING",
+        "CUE_SENSOR",
+        "NOTIFY_EXTERNAL",
+        "REQUEST_ESCALATION",
+        "OPEN_INCIDENT"
+      ]
+    },
+    "context": {
+      "type": "object",
+      "properties": {
+        "track_ids": { "type": "array", "items": { "type": "string" } },
+        "incident_id": { "type": ["string", "null"] },
+        "alert_ids": { "type": "array", "items": { "type": "string" } },
+        "recommendation_id": { "type": ["string", "null"] },
+        "policy_id": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "rationale": { "type": "string", "minLength": 1 },
+    "idempotency_key": { "type": "string" }
+  }
+}

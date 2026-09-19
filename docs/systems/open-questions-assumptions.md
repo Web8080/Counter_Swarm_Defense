@@ -21,7 +21,7 @@
 | A-08 | Draft latency NFRs are directionally correct | Resize infrastructure / edge inference |
 | A-09 | Classical tracking sufficient for Stage 1 proof | Bring ML tracking forward |
 | A-10 | No classified data in this GitHub repo | Separate enclave repos/processes required |
-| A-11 | Author name Victor.I in project markdown/scripts per project convention | — |
+| A-12 | Stage 1 runs on a single x86 lab host with Compose; Jetson/Pi are later profiles | If only Pi hardware exists, Stage 1 still targets sim-on-x86/cloud VM — do not redesign core for Pi |
 
 ---
 
@@ -43,7 +43,7 @@
 | Q-05 | Which real sensor vendors are in-scope for Stage 2–7? | SYS + Customer |
 | Q-06 | Coordinate reference systems and site surveys? | DE + SYS |
 | Q-07 | Time sync architecture (NTP vs PTP)? | SYS |
-| Q-08 | Edge compute hardware standards? | SYS |
+| Q-08 | Edge compute hardware standards? | **Proposed closed:** x86 central + Jetson EO edge + Pi light-only — see `architecture/edge-hardware.md`. Confirm budget/power. |
 
 ### Data / retention / privacy
 
