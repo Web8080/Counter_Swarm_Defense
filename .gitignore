@@ -40,3 +40,6 @@ models/weights/
 # Logs
 *.log
 logs/
+
+# Generated research HTML (PDFs are committed; regenerate via docs/research/render_pdfs.py)
+docs/research/html/
