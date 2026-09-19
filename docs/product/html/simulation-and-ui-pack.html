@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<!-- Author: Victor.I -->
+<title>Counter-Swarm Defence — UI/UX & Simulation Visual Pack</title>
+<style>
+  @page { size: A4 landscape; margin: 12mm; }
+  :root {
+    --bg: #0B1014;
+    --elev: #121A21;
+    --grid: #1A2430;
+    --text: #E6EEF4;
+    --muted: #9AA8B5;
+    --dim: #6B7A88;
+    --accent: #2BB3A3;
+    --t3: #E85D4C;
+    --t2: #E2A93B;
+    --t1: #3C8FBF;
+    --ok: #3FAE7F;
+    --down: #D35D5D;
+    --infer: #D0B15A;
+    --border: #243140;
+    --sans: "IBM Plex Sans", "Source Sans 3", "Segoe UI", sans-serif;
+    --mono: "IBM Plex Mono", "SF Mono", Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: var(--sans);
+    background: #1a1a1a;
+    color: var(--text);
+  }
+  .page {
+    width: 1120px;
+    min-height: 720px;
+    margin: 24px auto;
+    background: var(--bg);
+    border: 1px solid #333;
+    page-break-after: always;
+    break-after: page;
+    position: relative;
+    overflow: hidden;
+  }
+  .page:last-child { page-break-after: auto; }
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--muted);
+    background: #0E1419;
+  }
+  .meta strong { color: var(--text); letter-spacing: 0.04em; }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 2px;
+    font-size: 10px;
+    font-weight: 650;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .badge.lab { background: #3A2A12; color: var(--t2); border: 1px solid var(--t2); }
+  .badge.scr { background: #12302C; color: var(--accent); border: 1px solid var(--accent); }
+  .shell {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 14px;
+    background: var(--elev);
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .shell .brand { font-weight: 650; color: var(--accent); }
+  .pills span {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 2px 8px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .pills .ok { color: var(--ok); border-color: #2a5a45; }
+  .pills .warn { color: var(--t2); border-color: #6a5220; }
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    grid-template-rows: 1fr 160px;
+    height: 620px;
+  }
+  .layout.three {
+    grid-template-columns: 200px 1fr 260px;
+    grid-template-rows: 1fr 150px;
+  }
+  .map {
+    position: relative;
+    background:
+      linear-gradient(rgba(26,36,48,0.9), rgba(26,36,48,0.9)),
+      repeating-linear-gradient(0deg, transparent, transparent 39px, #1f2b38 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, #1f2b38 40px);
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .map .label {
+    position: absolute;
+    top: 10px; left: 10px;
+    font-size: 11px;
+    color: var(--dim);
+  }
+  .hatch {
+    position: absolute;
+    right: 40px; top: 60px;
+    width: 180px; height: 140px;
+    background: repeating-linear-gradient(
+      -45deg,
+      rgba(139,123,184,0.15),
+      rgba(139,123,184,0.15) 6px,
+      transparent 6px,
+      transparent 12px
+    );
+    border: 1px dashed rgba(139,123,184,0.5);
+  }
+  .hatch span {
+    position: absolute;
+    bottom: 6px; left: 8px;
+    font-size: 10px;
+    color: #b5a8d8;
+  }
+  .geofence {
+    position: absolute;
+    left: 120px; top: 100px;
+    width: 320px; height: 220px;
+    border: 1px solid rgba(226,169,59,0.45);
+    border-radius: 50% 40% 55% 45%;
+  }
+  .track {
+    position: absolute;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #D7E2EA;
+    box-shadow: 0 0 0 1px #000;
+  }
+  .track.sel {
+    background: var(--accent);
+    width: 12px; height: 12px;
+  }
+  .ellipse {
+    position: absolute;
+    border: 1px dashed rgba(43,179,163,0.55);
+    border-radius: 50%;
+    background: rgba(43,179,163,0.12);
+  }
+  .track-tag {
+    position: absolute;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text);
+    background: rgba(0,0,0,0.55);
+    padding: 2px 5px;
+    border-radius: 2px;
+  }
+  .panel {
+    background: var(--elev);
+    border-bottom: 1px solid var(--border);
+    border-left: 1px solid var(--border);
+    padding: 10px;
+    overflow: hidden;
+  }
+  .panel h3 {
+    margin: 0 0 8px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--dim);
+  }
+  .row {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 6px 8px;
+    margin-bottom: 4px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    font-size: 12px;
+    cursor: default;
+  }
+  .row.active { border-color: var(--accent); background: #0f2421; }
+  .tier {
+    font-weight: 650;
+    font-size: 10px;
+    padding: 1px 5px;
+    border-radius: 2px;
+  }
+  .tier.t3 { background: #3A1816; color: var(--t3); }
+  .tier.t2 { background: #3A2F12; color: var(--t2); }
+  .tier.t1 { background: #123040; color: var(--t1); }
+  .dock {
+    grid-column: 1 / -1;
+    background: #0E1419;
+    border-top: 1px solid var(--border);
+    padding: 8px 12px;
+  }
+  .tabs { font-size: 11px; color: var(--dim); margin-bottom: 6px; }
+  .tabs b { color: var(--accent); }
+  .timeline {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .epi {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .epi .band {
+    border-left: 3px solid var(--dim);
+    padding: 6px 8px;
+    background: #0E1419;
+    font-size: 11px;
+  }
+  .epi .band.obs { border-color: var(--muted); }
+  .epi .band.inf { border-color: var(--infer); }
+  .epi .band.pred { border-color: #6FA8C9; }
+  .epi .band.rec { border-color: var(--accent); }
+  .epi .band.dec { border-color: var(--text); }
+  .epi .band .k {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--dim);
+    margin-bottom: 2px;
+  }
+  .btn {
+    display: inline-block;
+    padding: 7px 12px;
+    font-size: 12px;
+    border-radius: 2px;
+    border: 1px solid var(--border);
+    background: #1a2530;
+    color: var(--text);
+    margin-right: 6px;
+  }
+  .btn.primary {
+    background: var(--accent);
+    color: #06221F;
+    border-color: var(--accent);
+    font-weight: 650;
+  }
+  .btn.ghost { background: transparent; }
+  .notice {
+    margin-top: 10px;
+    padding: 8px;
+    border: 1px solid #5a3030;
+    background: #2a1514;
+    color: #F5C4BE;
+    font-size: 11px;
+  }
+  .title-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 64px;
+    min-height: 720px;
+    background:
+      radial-gradient(ellipse at 20% 30%, rgba(43,179,163,0.12), transparent 50%),
+      radial-gradient(ellipse at 80% 70%, rgba(226,169,59,0.08), transparent 45%),
+      var(--bg);
+  }
+  .title-page h1 {
+    font-size: 42px;
+    margin: 0 0 12px;
+    font-weight: 650;
+  }
+  .title-page .sub {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 640px;
+    line-height: 1.45;
+  }
+  .title-page .foot {
+    margin-top: 48px;
+    font-size: 12px;
+    color: var(--dim);
+  }
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 620px;
+  }
+  .sim-map {
+    position: relative;
+    background: #0a1218;
+    border-right: 1px solid var(--border);
+  }
+  .truth {
+    position: absolute;
+    border: 1px solid rgba(226,169,59,0.7);
+    width: 8px; height: 8px;
+    transform: rotate(45deg);
+    background: var(--t2);
+  }
+  table.simple {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  table.simple th, table.simple td {
+    text-align: left;
+    padding: 6px 8px;
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+  }
+  table.simple th { color: var(--dim); font-size: 10px; letter-spacing: 0.06em; }
+  .banner {
+    background: #2a2410;
+    color: var(--t2);
+    font-size: 11px;
+    padding: 6px 14px;
+    border-bottom: 1px solid #5a4a20;
+  }
+  .layers {
+    position: absolute;
+    bottom: 10px; left: 10px;
+    display: flex;
+    gap: 4px;
+  }
+  .layers i {
+    font-style: normal;
+    font-size: 10px;
+    padding: 3px 6px;
+    border: 1px solid var(--border);
+    background: rgba(0,0,0,0.5);
+    color: var(--muted);
+  }
+  .layers i.on { border-color: var(--accent); color: var(--accent); }
+  .bar {
+    height: 8px;
+    background: #1a2530;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 4px;
+  }
+  .bar > span { display: block; height: 100%; background: var(--infer); }
+  .two-col {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    height: 620px;
+  }
+  .pad { padding: 16px; }
+  h2.screen-title {
+    margin: 0 0 4px;
+    font-size: 16px;
+  }
+  p.screen-desc { margin: 0 0 12px; color: var(--muted); font-size: 12px; }
+  @media print {
+    body { background: white; }
+    .page { margin: 0; border: none; width: auto; min-height: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 0 COVER -->
+<section class="page title-page">
+  <div class="badge scr">VISUAL PACK · STAGE 0</div>
+  <h1>Counter-Swarm Defence</h1>
+  <p class="sub">UI/UX screen compositions and simulation lab views for architecture review. These are design specifications rendered for PDF review — not production software.</p>
+  <p class="foot">Author: Victor.I · Screens: X01, X03, X04, X05, I01, S01 · Simulation loop included<br/>
+  Source markdown: docs/product/* · docs/simulation/*</p>
+</section>
+
+<!-- PAGE X01 -->
+<section class="page">
+  <div class="meta">
+    <div><strong>X01 — Operator Monitor</strong> · Map-first triage console · P0</div>
+    <div><span class="badge scr">SCREEN</span></div>
+  </div>
+  <div class="banner">COVERAGE REDUCED — RF-02 offline · track confidence capped in hatched sector</div>
+  <div class="shell">
+    <div><span class="brand">COUNTER-SWARM</span> · Site ALPHA · Mode MONITOR · op_j.smith</div>
+    <div class="pills"><span class="ok">SYS OK</span><span class="warn">SENS 3/4</span><span>LAG 0.12s</span></div>
+  </div>
+  <div class="layout three">
+    <div class="panel" style="border-left:none;">
+      <h3>Alerts</h3>
+      <div class="row active"><span><span class="tier t3">T3</span> Swarm indicators</span><span>2s</span></div>
+      <div class="row"><span><span class="tier t2">T2</span> New track T-104</span><span>8s</span></div>
+      <div class="row"><span><span class="tier t1">T1</span> RF-02 heartbeat</span><span>42s</span></div>
+      <h3 style="margin-top:14px;">Active tracks</h3>
+      <div class="row active"><span>T-104 UAV? 0.72</span><span>GOOD</span></div>
+      <div class="row"><span>T-105 UAV? 0.68</span><span>FAIR</span></div>
+      <div class="row"><span>T-091 Bird? 0.61</span><span>GOOD</span></div>
+      <div class="row"><span>T-088 Unk 0.40</span><span>COAST</span></div>
+    </div>
+    <div class="map">
+      <div class="label">MAP · layers on: tracks, uncertainty, geofence</div>
+      <div class="geofence"></div>
+      <div class="hatch"><span>RF coverage hole</span></div>
+      <div class="ellipse" style="left:340px;top:200px;width:70px;height:48px;"></div>
+      <div class="track sel" style="left:368px;top:216px;"></div>
+      <div class="track-tag" style="left:384px;top:200px;">T-104</div>
+      <div class="track" style="left:410px;top:240px;"></div>
+      <div class="track-tag" style="left:422px;top:236px;color:#9AA8B5;">T-105</div>
+      <div class="track" style="left:260px;top:160px;"></div>
+      <div class="track-tag" style="left:272px;top:150px;color:#9AA8B5;">T-091</div>
+      <div class="layers"><i class="on">Tracks</i><i class="on">Uncertainty</i><i>FOV</i><i>Obs</i><i>Predict</i><i>Simplify</i></div>
+    </div>
+    <div class="panel">
+      <h3>Risk / next action</h3>
+      <div style="font-size:13px;margin-bottom:8px;">Track <b>T-104</b></div>
+      <div style="font-size:12px;color:var(--t2);margin-bottom:8px;">Risk: ELEVATED · policy v3</div>
+      <div class="epi">
+        <div class="band inf"><div class="k">INFERENCE</div>Class UAV p=0.72 · det-v3.2</div>
+        <div class="band rec"><div class="k">RECOMMENDATION</div>HEIGHTEN_MONITORING (P-12)</div>
+        <div class="band obs"><div class="k">MISSING INFO</div>RF corroboration</div>
+      </div>
+      <div style="margin-top:12px;">
+        <span class="btn">Evidence</span>
+        <span class="btn primary">Decide</span>
+      </div>
+    </div>
+    <div class="dock">
+      <div class="tabs"><b>TIMELINE</b> · Sensors · System · Audit · Assistant</div>
+      <div class="timeline">12:01:02 obs RDR-1 · 12:01:03 det · 12:01:04 track upd · 12:01:05 risk elevated · 12:01:06 alert T2</div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE X03 -->
+<section class="page">
+  <div class="meta">
+    <div><strong>X03 — Track Evidence</strong> · Epistemic stack must stay visible · P0</div>
+    <div><span class="badge scr">SCREEN</span></div>
+  </div>
+  <div class="shell">
+    <div><span class="brand">COUNTER-SWARM</span> · Track T-104 · ACTIVE · age 00:01:14 · quality GOOD</div>
+    <div class="pills"><span class="ok">FUSION OK</span><span>models pinned</span></div>
+  </div>
+  <div class="two-col">
+    <div class="map" style="border-bottom:none;">
+      <div class="label">FOCUSED MAP · other tracks dimmed</div>
+      <div class="ellipse" style="left:280px;top:180px;width:120px;height:80px;"></div>
+      <div class="track sel" style="left:330px;top:210px;"></div>
+      <div class="track-tag" style="left:348px;top:198px;">T-104 path</div>
+      <svg width="100%" height="100%" style="position:absolute;inset:0;pointer-events:none;">
+        <polyline points="200,280 250,250 300,230 330,215" fill="none" stroke="#2BB3A3" stroke-width="2" opacity="0.7"/>
+        <polyline points="330,215 380,190 430,160" fill="none" stroke="#6FA8C9" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.8"/>
+      </svg>
+      <div class="layers"><i class="on">Track</i><i class="on">Uncertainty</i><i class="on">Prediction</i></div>
+    </div>
+    <div class="pad" style="background:var(--elev);border-left:1px solid var(--border);">
+      <h2 class="screen-title">Evidence pack</h2>
+      <p class="screen-desc">Observation ≠ inference ≠ prediction ≠ recommendation ≠ decision</p>
+      <div class="epi">
+        <div class="band obs"><div class="k">OBSERVATION</div>obs-881 RDR-1 · obs-882 EO-3 · quality OK · 3 plots / 8s</div>
+        <div class="band inf"><div class="k">INFERENCE</div>
+          UAV 0.72 · Bird 0.18 · Unknown 0.10 · model det-v3.2
+          <div class="bar"><span style="width:72%"></span></div>
+        </div>
+        <div class="band pred"><div class="k">PREDICTION</div>60s kinematic envelope (dashed on map)</div>
+        <div class="band rec"><div class="k">RECOMMENDATION</div>HEIGHTEN_MONITORING · policy P-12</div>
+        <div class="band dec"><div class="k">DECISION</div>Pending human</div>
+      </div>
+      <div style="margin-top:14px;font-size:11px;color:var(--muted);">
+        Evidence graph: obs → det-9 → track T-104 → behaviour? → risk ELEVATED
+      </div>
+      <div style="margin-top:14px;">
+        <span class="btn">Cue sensor</span>
+        <span class="btn">Open incident</span>
+        <span class="btn primary">Decide</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE X04 -->
+<section class="page">
+  <div class="meta">
+    <div><strong>X04 — Record Decision</strong> · Category only · never effector language · P0</div>
+    <div><span class="badge scr">SCREEN</span></div>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:center;height:640px;background:rgba(0,0,0,0.35);">
+    <div style="width:480px;background:var(--elev);border:1px solid var(--border);padding:20px;">
+      <h2 class="screen-title">Record authorised response category</h2>
+      <p class="screen-desc">Context: Track T-104 · Incident I-22 · Recommended: HEIGHTEN_MONITORING</p>
+      <div style="font-size:13px;line-height:1.9;">
+        <div>○ DISMISS</div>
+        <div style="color:var(--accent);">● HEIGHTEN_MONITORING</div>
+        <div>○ CUE_SENSOR</div>
+        <div>○ NOTIFY_EXTERNAL</div>
+        <div>○ REQUEST_ESCALATION</div>
+        <div>○ OPEN_INCIDENT</div>
+      </div>
+      <div style="margin-top:12px;font-size:12px;color:var(--muted);">Rationale (required)</div>
+      <div style="margin-top:4px;border:1px solid var(--border);background:#0E1419;min-height:56px;padding:8px;font-size:12px;color:var(--dim);">
+        Multi-track proximity + shared heading; RF still missing on T-109…
+      </div>
+      <div class="notice">This records intent for authorised systems. It does not control weapons or electronic attack.</div>
+      <div style="margin-top:14px;text-align:right;">
+        <span class="btn ghost">Cancel</span>
+        <span class="btn primary">Record decision</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE I01 -->
+<section class="page">
+  <div class="meta">
+    <div><strong>I01 — Incident Workspace</strong> · Suspected coordination · P0</div>
+    <div><span class="badge scr">SCREEN</span></div>
+  </div>
+  <div class="shell">
+    <div><span class="brand">INCIDENT I-22</span> · SUSPECTED_COORDINATION · owner cmdr.lee · ACTIVE</div>
+    <div class="pills"><span class="warn">RISK HIGH BAND</span><span>3 tracks</span></div>
+  </div>
+  <div class="layout" style="grid-template-columns: 1fr 320px; grid-template-rows: 1fr 140px; height: 620px;">
+    <div class="map">
+      <div class="label">INCIDENT MAP · members only</div>
+      <div class="track sel" style="left:300px;top:200px;"></div>
+      <div class="track" style="left:340px;top:230px;"></div>
+      <div class="track" style="left:280px;top:250px;"></div>
+      <div class="track-tag" style="left:312px;top:184px;">T-104</div>
+      <div class="track-tag" style="left:352px;top:220px;color:#9AA8B5;">T-105</div>
+      <div class="track-tag" style="left:250px;top:250px;color:#9AA8B5;">T-109</div>
+      <div class="ellipse" style="left:250px;top:170px;width:160px;height:120px;"></div>
+    </div>
+    <div class="panel">
+      <h3>Summary</h3>
+      <div class="epi">
+        <div class="band inf"><div class="k">BEHAVIOUR INDICATOR</div>Formation-like proximity (not a confirmed swarm fact)</div>
+        <div class="band obs"><div class="k">MISSING</div>RF on T-109</div>
+        <div class="band rec"><div class="k">RECOMMENDATION</div>NOTIFY_EXTERNAL</div>
+      </div>
+      <div style="margin-top:12px;">
+        <span class="btn primary">Decide</span>
+        <span class="btn">Transfer</span>
+        <span class="btn">Close</span>
+      </div>
+      <h3 style="margin-top:16px;">Handoff</h3>
+      <div style="font-size:12px;color:var(--muted);">Status: NOT_REQUIRED until decision</div>
+    </div>
+    <div class="dock">
+      <div class="tabs"><b>SHARED TIMELINE</b> · Notes · Participants</div>
+      <div class="timeline">12:02 incident opened · 12:03 behaviour flag · 12:04 risk high · awaiting decision</div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE X05 -->
+<section class="page">
+  <div class="meta">
+    <div><strong>X05 — Sensor & System Health</strong> · Fail visible · P0</div>
+    <div><span class="badge scr">SCREEN</span></div>
+  </div>
+  <div class="shell">
+    <div><span class="brand">HEALTH</span> · Site ALPHA</div>
+    <div class="pills"><span class="warn">1 SENSOR DOWN</span><span class="ok">AUDIT OK</span></div>
+  </div>
+  <div class="split">
+    <div class="pad">
+      <h2 class="screen-title">Sensors</h2>
+      <table class="simple">
+        <tr><th>ID</th><th>Type</th><th>Status</th><th>Last obs</th><th>Notes</th></tr>
+        <tr><td>RDR-1</td><td>radar</td><td style="color:var(--ok)">OK</td><td>0.4s</td><td>—</td></tr>
+        <tr><td>EO-3</td><td>eo</td><td style="color:var(--ok)">OK</td><td>1.1s</td><td>—</td></tr>
+        <tr><td>RF-02</td><td>rf</td><td style="color:var(--down)">DOWN</td><td>42s</td><td>heartbeat miss</td></tr>
+        <tr><td>MIC-1</td><td>acoustic</td><td style="color:var(--ok)">OK</td><td>0.8s</td><td>—</td></tr>
+      </table>
+      <h2 class="screen-title" style="margin-top:24px;">Platform</h2>
+      <table class="simple">
+        <tr><th>Component</th><th>Status</th><th>Signal</th></tr>
+        <tr><td>API / Realtime</td><td style="color:var(--ok)">OK</td><td>p95 180ms</td></tr>
+        <tr><td>Event bus lag</td><td style="color:var(--ok)">OK</td><td>120ms</td></tr>
+        <tr><td>Tracking</td><td style="color:var(--ok)">OK</td><td>4 active</td></tr>
+        <tr><td>Model det-v3.2</td><td style="color:var(--ok)">OK</td><td>infer p95 42ms</td></tr>
+      </table>
+    </div>
+    <div class="map" style="border-left:1px solid var(--border);">
+      <div class="label">COVERAGE MAP</div>
+      <div class="hatch" style="left:80px;top:100px;width:220px;height:180px;"><span>RF-02 sector offline</span></div>
+      <div class="geofence" style="left:160px;top:120px;width:240px;height:200px;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE SIM FLOW -->
+<section class="page">
+  <div class="meta">
+    <div><strong>Simulation architecture</strong> · Digital twin feeds the real platform</div>
+    <div><span class="badge lab">LAB</span></div>
+  </div>
+  <div class="pad" style="height:640px;">
+    <h2 class="screen-title">Simulation → real software path</h2>
+    <p class="screen-desc">No weapons, no jamming, no kinetic effects — categories and mock externals only.</p>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:36px;gap:8px;font-size:12px;">
+      <div style="flex:1;background:var(--elev);border:1px solid var(--border);padding:16px;min-height:120px;">
+        <div class="k" style="color:var(--t2);font-size:10px;letter-spacing:0.08em;">TRUTH ENGINE</div>
+        <div style="margin-top:8px;">Synthetic objects<br/>Swarm scripts<br/>Seeds / clocks</div>
+      </div>
+      <div style="color:var(--dim);">→</div>
+      <div style="flex:1;background:var(--elev);border:1px solid var(--border);padding:16px;min-height:120px;">
+        <div style="color:var(--infer);font-size:10px;letter-spacing:0.08em;">SENSOR MODELS</div>
+        <div style="margin-top:8px;">Radar / EO / RF / Acoustic<br/>Noise · Pd/Pfa · FOV</div>
+      </div>
+      <div style="color:var(--dim);">→</div>
+      <div style="flex:1;background:var(--elev);border:1px solid var(--border);padding:16px;min-height:120px;">
+        <div style="color:var(--t3);font-size:10px;letter-spacing:0.08em;">FAULT INJECTOR</div>
+        <div style="margin-top:8px;">Drop · Delay · Dup<br/>Corrupt · Sensor death</div>
+      </div>
+      <div style="color:var(--dim);">→</div>
+      <div style="flex:1;background:var(--elev);border:1px solid var(--border);padding:16px;min-height:120px;">
+        <div style="color:var(--accent);font-size:10px;letter-spacing:0.08em;">SIM ADAPTERS</div>
+        <div style="margin-top:8px;">Canonical observations<br/>Same ICD as hardware</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin:18px;color:var(--dim);">↓</div>
+    <div style="background:#0f2421;border:1px solid var(--accent);padding:18px;text-align:center;">
+      <div style="color:var(--accent);font-weight:650;">REAL PLATFORM UNDER TEST</div>
+      <div style="margin-top:8px;font-size:13px;color:var(--muted);">Normaliser → Bus → Detect/Track/Fuse → Behaviour → Risk → Alerts → X01 Console → Decision → Mock External → Audit</div>
+    </div>
+    <div style="margin-top:28px;">
+      <table class="simple">
+        <tr><th>Scenario</th><th>ID</th><th>What you see on X01</th></tr>
+        <tr><td>Coordinated trio</td><td>SCN-SWM-01</td><td>T3 behaviour alert + incident offer</td></tr>
+        <tr><td>RF silent</td><td>SCN-MOD-01</td><td>Missing-info + confidence ceiling</td></tr>
+        <tr><td>Sensor death</td><td>SCN-FLT-01</td><td>Coverage hatch + X05 DOWN</td></tr>
+        <tr><td>Handoff fail</td><td>SCN-DEC-02</td><td>Decision saved · HANDOFF_FAILED</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE S01 -->
+<section class="page">
+  <div class="meta">
+    <div><strong>S01 — Simulation Director</strong> · Lab only · drives observations into real X01</div>
+    <div><span class="badge lab">LAB ONLY</span></div>
+  </div>
+  <div class="shell">
+    <div><span class="brand">SIM DIRECTOR</span> · env LAB · instructor session</div>
+    <div class="pills"><span class="warn">NOT FOR OPS</span><span class="ok">BUS CONNECTED</span></div>
+  </div>
+  <div class="split">
+    <div class="pad" style="background:var(--elev);">
+      <h2 class="screen-title">Scenario control</h2>
+      <p class="screen-desc">Catalogue → run → inject faults → observe operator console</p>
+      <table class="simple">
+        <tr><th>Field</th><th>Value</th></tr>
+        <tr><td>Scenario</td><td>SCN-SWM-01 coordinated_trio_v3</td></tr>
+        <tr><td>Seed</td><td>42</td></tr>
+        <tr><td>Speed</td><td>1x</td></tr>
+        <tr><td>Elapsed</td><td>00:01:14 / 00:05:00</td></tr>
+      </table>
+      <div style="margin-top:14px;">
+        <span class="btn primary">Start</span>
+        <span class="btn">Pause</span>
+        <span class="btn">Inject fault</span>
+      </div>
+      <h3 style="margin-top:20px;font-size:11px;letter-spacing:0.08em;color:var(--dim);">FAULT TOGGLES</h3>
+      <div style="font-size:12px;line-height:1.8;color:var(--muted);">
+        ☐ Drop RF &nbsp; ☐ Delay EO &nbsp; ☐ Duplicate &nbsp; ☐ Corrupt<br/>
+        ☑ Sensor death RF-02 @ t=45s &nbsp; ☐ Link loss
+      </div>
+      <h3 style="margin-top:16px;font-size:11px;letter-spacing:0.08em;color:var(--dim);">TRUTH OVERLAY</h3>
+      <div style="font-size:12px;color:var(--muted);">● Instructor only &nbsp; ○ Off &nbsp; ○ Forbidden for operator-under-test</div>
+      <div class="notice" style="margin-top:16px;">Mock external will ACK/FAIL category handoffs. No physical effects exist in this environment.</div>
+    </div>
+    <div class="sim-map">
+      <div class="label" style="position:absolute;top:10px;left:10px;font-size:11px;color:var(--dim);">TRUTH VIEW (instructor)</div>
+      <div class="truth" style="left:300px;top:200px;"></div>
+      <div class="truth" style="left:340px;top:230px;"></div>
+      <div class="truth" style="left:280px;top:250px;"></div>
+      <div class="track-tag" style="left:312px;top:184px;color:var(--t2);">truth A</div>
+      <div class="track-tag" style="left:352px;top:220px;color:var(--t2);">truth B</div>
+      <div class="track-tag" style="left:250px;top:250px;color:var(--t2);">truth C</div>
+      <div style="position:absolute;bottom:16px;left:16px;right:16px;font-size:11px;color:var(--muted);background:rgba(0,0,0,0.55);padding:8px;">
+        Diamonds = truth objects · Operator X01 sees estimated tracks only · Scorer compares offline
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE DUAL -->
+<section class="page">
+  <div class="meta">
+    <div><strong>Lab dual console</strong> · Director + Operator side-by-side</div>
+    <div><span class="badge lab">LAB</span></div>
+  </div>
+  <div class="split" style="height:660px;">
+    <div style="border-right:1px solid var(--border);">
+      <div class="shell"><div><span class="brand">S01 DIRECTOR</span></div><div class="badge lab">LAB</div></div>
+      <div class="pad">
+        <div style="font-size:12px;color:var(--muted);line-height:1.6;">
+          Running SCN-SWM-01<br/>
+          Fault: RF-02 death armed<br/>
+          Obs rate: 42/s → bus<br/>
+          Mock external: idle
+        </div>
+        <div style="margin-top:20px;" class="btn primary">Inject now</div>
+      </div>
+    </div>
+    <div>
+      <div class="shell"><div><span class="brand">X01 OPERATOR</span></div><div class="pills"><span class="warn">SENS 3/4</span></div></div>
+      <div class="map" style="height:560px;border:none;">
+        <div class="label">Same real console UI · fed by simulation</div>
+        <div class="hatch"><span>RF hole after inject</span></div>
+        <div class="track sel" style="left:300px;top:220px;"></div>
+        <div class="track" style="left:340px;top:250px;"></div>
+        <div class="track-tag" style="left:316px;top:200px;">T-104</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE INDEX -->
+<section class="page">
+  <div class="meta">
+    <div><strong>Document map</strong> · Where the detailed specs live</div>
+    <div>Author: Victor.I</div>
+  </div>
+  <div class="pad">
+    <h2 class="screen-title">Related markdown (source of truth for review comments)</h2>
+    <table class="simple" style="margin-top:16px;">
+      <tr><th>Topic</th><th>Path</th></tr>
+      <tr><td>Wireframes</td><td>docs/product/04-wireframes.md</td></tr>
+      <tr><td>Screen inventory</td><td>docs/product/05-ui-screen-inventory.md</td></tr>
+      <tr><td>UX principles / tokens</td><td>docs/product/06-*.md · 08-design-tokens.md</td></tr>
+      <tr><td>Workflows / journeys</td><td>docs/product/01-*.md · 02-*.md · 10-*.md</td></tr>
+      <tr><td>Simulation pack</td><td>docs/simulation/*</td></tr>
+      <tr><td>Digital twin architecture</td><td>docs/systems/digital-twin.md</td></tr>
+    </table>
+    <p class="screen-desc" style="margin-top:28px;">PDFs in docs/product/pdfs/ are generated from this HTML for stakeholder review. High-fidelity design comps can replace these later without changing screen IDs.</p>
+  </div>
+</section>
+
+</body>
+</html>

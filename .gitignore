@@ -1,0 +1,42 @@
+# Author: Victor.I
+# Local env and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+
+# Dependencies / build
+node_modules/
+dist/
+build/
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.next/
+coverage/
+
+# Data & models (large / sensitive)
+data/raw/
+data/local/
+*.pt
+*.pth
+*.onnx
+*.engine
+models/weights/
+
+# IDE / OS
+.DS_Store
+**/.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Logs
+*.log
+logs/
