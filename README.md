@@ -82,6 +82,7 @@ Physical response effects remain outside the platform. Development uses simulati
 | 20 | CI/CD design | [docs/software/cicd-and-environments.md](docs/software/cicd-and-environments.md) |
 | 21 | Stage 0 completion gate | [docs/systems/stage0-completion.md](docs/systems/stage0-completion.md) |
 | 22 | Research monographs (8 roles, Pass 1) | [docs/research/README.md](docs/research/README.md) |
+| 23 | Lessons learned + Phases 1–8 build roadmap | [docs/systems/lessons-and-build-roadmap.md](docs/systems/lessons-and-build-roadmap.md) |
 
 Discipline deep-dives live under `docs/product`, `docs/software`, `docs/ai`, `docs/ml`, `docs/data`, `docs/data-science`, `docs/security`, and `docs/systems`.
 

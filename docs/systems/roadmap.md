@@ -4,7 +4,9 @@
 
 **Author:** Victor.I  
 **Status:** Draft for review  
-**Gate:** No Stage 1 coding until Stage 0 documents approved
+**Gate:** Stage 0 complete. Executable build plan with lessons applied: [`lessons-and-build-roadmap.md`](lessons-and-build-roadmap.md).
+
+This file remains the original Stage 0 stage sketch. Prefer the lessons-and-build roadmap for Phase 1–8 execution.
 
 ---
 

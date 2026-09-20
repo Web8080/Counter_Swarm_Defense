@@ -70,7 +70,7 @@
 
 ## 4. Recommended next step
 
-**Planning session → Stage 1 implementation plan** (Compose skeleton, schemas enforcement, sim → track → console vertical slice) on **x86 lab host**. Jetson/Pi only as later edge profiles per `architecture/edge-hardware.md`.
+**Accepted path:** Follow [`lessons-and-build-roadmap.md`](lessons-and-build-roadmap.md) — start **Phase 1** (Compose vertical slice on x86). Jetson/Pi only as later edge profiles per `architecture/edge-hardware.md`.
 
 ---
 
