@@ -108,7 +108,7 @@ RESEARCH → REQUIREMENTS → SYSTEM ARCHITECTURE
         → HARDWARE-IN-LOOP → CONTROLLED VALIDATION → PRODUCTION
 ```
 
-Current gate: **Stage 0 documentation complete** ([stage0-completion.md](docs/systems/stage0-completion.md)). Next: **planning → Stage 1 coding** on an **x86 lab host** (Compose). Edge: **NVIDIA Jetson** for EO when needed; **Raspberry Pi** only for light/lab adapters — see [architecture/edge-hardware.md](architecture/edge-hardware.md).
+Current gate: **Ready for Phase 1 build planning.** Lessons and detailed Phases 1–8 roadmap: [docs/systems/lessons-and-build-roadmap.md](docs/systems/lessons-and-build-roadmap.md). Stage 0 docs: [stage0-completion.md](docs/systems/stage0-completion.md). Deploy baseline: **x86 lab** first; Jetson for EO later; Pi light-only — [architecture/edge-hardware.md](architecture/edge-hardware.md).
 
 ---
 
